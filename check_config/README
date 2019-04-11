@@ -7,3 +7,8 @@ to know how it looks like, whether it can be run with a minimal settings in inpu
 First of all, we run in.check to see whether it can be run or not. Secondly, we use ovito to 
 visualize the structure of the atoms. check_config.ovito is the ovito output status file. 
 After installing ovito, we are able to open this file and visualize data.unknown.
+
+Cite OVITO:
+A. Stukowski
+Visualization and analysis of atomistic simulation data with OVITO - the Open Visualization Tool 
+Modelling Simul. Mater. Sci. Eng. 18 (2010), 015012
