@@ -1,0 +1,13 @@
+Date created: Jul 27, 2016
+
+Author: Sun-Ting Tsai            lina492375qw1188@gmail.com
+
+In this example, we generate a 2D plate with bond-type atoms in the fcc structure. We then
+define regions of lower and upper parts, and apply forces on these parts with opposite 
+directions (Within this script, we can also apply constant velocities). In the end, we dump
+time series of atoms and make an animation with OVITO.
+
+Cite OVITO:
+A. Stukowski
+Visualization and analysis of atomistic simulation data with OVITO - the Open Visualization Tool 
+Modelling Simul. Mater. Sci. Eng. 18 (2010), 015012

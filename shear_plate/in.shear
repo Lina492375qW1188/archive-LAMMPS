@@ -1,0 +1,63 @@
+# Initialization
+
+boundary          s s p
+atom_style        bond
+
+#Atom Definition
+
+lattice           fcc 0.82
+region            1 block -10 10 -5 5 -0.25 0.25
+create_box        3 1  bond/types 1
+create_atoms      1 box
+
+mass              1 10.0
+mass              2 10.0
+mass              3 10.0
+
+neighbor          0.3 bin
+neigh_modify	  delay 0
+
+region            2 block INF INF INF -4 INF INF
+group             lower region 2
+region            3 block INF INF 4 INF INF INF
+group             upper region 3
+group             boundary union lower upper
+group             inside subtract all boundary
+
+set               group lower type 2
+set               group upper type 3
+
+pair_style        lj/cut 2.5
+pair_coeff        1 1 10.0 1.0 2.5
+pair_coeff        2 2 10.0 1.0 2.5
+pair_coeff        3 3 10.0 1.0 2.5   # should set all bond to atom_type that create_box defined.
+
+bond_style        harmonic
+bond_coeff        1 200.0 0.82
+create_bonds      many inside inside 1 0.8 1.1
+
+# Setting
+
+#velocity          inside create 1.0 5812775
+#fix               1 all nvt temp 300.0 300.0 100.0
+fix               1 all nve
+fix               2 boundary setforce 0.0 0.0 0.0
+
+fix               3 upper addforce 1.0 0.0 0.0
+fix               4 lower addforce -1.0 0.0 0.0
+
+#velocity          upper set 1.0 0 0
+#velocity          lower set -1.0 0 0
+
+# Run a simulatio
+
+timestep          0.003
+thermo_style      custom step temp epair ebond etotal
+thermo            100
+
+dump               1 all atom 50 out.shear
+#dump              1 all movie 50 movie.mpg type type zoom 1.5 adiam 1.5 view 40.0 30.0
+
+write_data        out.final_shear
+
+run               3000
