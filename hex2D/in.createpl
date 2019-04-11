@@ -1,0 +1,31 @@
+# Build a 2D simulation box which is filled with atoms. There is no fix defined, the atoms won't move.
+# Initialization
+
+dimension       2
+boundary        s s p
+atom_style      angle
+
+neighbor        0.3 bin
+neigh_modify    delay 5
+
+# Atom Definition
+
+lattice         hex 1.0
+region          1 block -10 10 -10 10 -0.5 0.5
+create_box      1 1
+create_atoms    1 box
+
+mass            1 1.0
+
+pair_style      lj/cut 2.5
+pair_coeff      1 1 10.0 1.0 2.5
+
+# Setting
+
+# Run
+# dump movie is not available in some environment.
+# dump            1 all movie 50 movie.mpg type type zoom 2.0 &
+#                 adiam 0.5 view 30.0 0.0
+write_data      data.pl
+
+run 5000
