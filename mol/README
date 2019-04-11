@@ -1,0 +1,15 @@
+Date created: Jul 27, 2016
+
+Author: Sun-Ting Tsai            lina492375qw1188@gmail.com
+
+
+This one we set a molecule constituted with three diffent kinds of atoms. There are two 
+bonds of the same type in this molecule. To visualize the bond in OVITO, first we need 
+to load data.mol into OVITO. After that, we apply load "trajectory feature" to load dump 
+file. To avoid misleading breaking of bonds, we also suppressed the periodic boundary in
+OVITO.
+
+Cite OVITO:
+A. Stukowski
+Visualization and analysis of atomistic simulation data with OVITO - the Open Visualization Tool 
+Modelling Simul. Mater. Sci. Eng. 18 (2010), 015012
