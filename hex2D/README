@@ -1,0 +1,8 @@
+Date created: Jul 27, 2016
+
+Author: Sun-Ting Tsai            lina492375qw1188@gmail.com
+
+There are several ways to generate LAMMPS configuration files. This is
+an example of creating a configuration file from LAMMPS output. The
+idea is to build a 2D simulation box and to fill the box up with atoms
+which organized in the hexagonal structure.
