@@ -1,0 +1,67 @@
+# Initialization
+
+units           lj
+dimension       3
+boundary        p p p
+atom_style      angle
+
+neighbor        0.3 bin
+neigh_modify    delay 5
+
+# Atom Definition
+
+read_data       data.unknown
+
+region          2 block INF -30 INF INF INF INF
+group           lower region 2
+region          3 block 30 INF INF INF INF INF
+group           upper region 3
+group           boundary union lower upper
+group           inside subtract all boundary
+
+pair_style      lj/cut 1.122462
+pair_coeff      1 1 1.0 1.0
+
+bond_style      harmonic
+bond_coeff      1 50000.0 1.0
+
+angle_style     harmonic
+angle_coeff     1 1.0 180
+
+min_style       cg
+minimize        1.0e-5 1.0e-8  1000 10000
+
+# Setting
+
+fix             1 all nvt temp 1.0 1.0 0.01
+fix             2 upper setforce 0.0 0 0
+fix             3 lower setforce 0.0 0 0
+
+compute         1 upper property/atom y
+compute         2 upper property/atom z
+compute         3 lower property/atom y
+compute         4 lower property/atom z
+
+variable        ycoordu atom -10*c_1
+variable        zcoordu atom 10*c_2
+variable        ycoordl atom 10*c_3
+variable        zcoordl atom -10*c_4
+
+fix             4 upper addforce 0.0 v_zcoordu v_ycoordu
+fix             5 lower addforce 0.0  v_zcoordl v_ycoordl
+
+# Run
+
+timestep        0.005
+
+thermo          100
+thermo_style    custom step temp ebond eangle
+
+dump            1 all atom 50 out.torqroll
+# dump            1 all movie 10 movie.mpg type type zoom 2.0 &
+#                 adiam 0.5 view 70.0 85.0
+
+run             5000
+
+write_data      out.final_torqroll
+
